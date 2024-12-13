@@ -36,13 +36,55 @@ python manage.py startapp [app_name]
 
 ```
 
-5. Start celery worker, beat and flower admin.
+5. Setting up Redis
+
+Installing and Running Redis
+
+* Install Redis using your system's package manager. For example:
+
++ On Ubuntu/Debian:
+
+``` 
+$ sudo apt update && sudo apt install redis
+```
+
++ On Fedora/CentOS:
+
+```
+$ sudo dnf install redis
+```
+
++ On macOS (with Homebrew):
+
+```
+$ brew install redis
+```
+
+* Start and enable the Redis service:
+
+```
+$ sudo systemctl start redis
+$ sudo systemctl enable redis
+```
+
+* Verify Redis is running:
+
+```
+$ redis-cli ping
+```
+
+You should see PONG as the response.
+
+6. Start celery worker, beat and flower admin.
 
 ```
 $ make worker
 $ make beat
 $ make flower password=<choose-a-secure-password>
 ```
+
+> **Note:** Ensure that the `CELERY_BROKER_URL` is updated with the correct Redis server details if using a remote Redis instance.
+
 
 ### Make API calls against the server
 
